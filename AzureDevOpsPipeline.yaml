@@ -1,0 +1,36 @@
+steps:
+- pwsh: |
+    Write-Host "##[group]Beginning of a group"
+    Write-Host "##[warning]Warning message"
+    Write-Host "##[error]Error message"
+    Write-Host "##[section]Start of a section"
+    Write-Host "##[debug]Debug text"
+    Write-Host "##[command]Command-line being run"
+    Write-Host "##[endgroup]"
+- pwsh: | 
+    Write-host -ForegroundColor 'Red' 'RedTest'
+    Write-host -ForegroundColor 'Green' 'GreenTest'
+    Write-host -ForegroundColor 'Yellow' 'YellowTest'
+    Write-host -ForegroundColor 'Magenta' 'MagentaTest'
+    Write-host -ForegroundColor 'Blue' 'BlueTest'
+- pwsh: |
+    $FormattedString = '{0}{1}{2}' -f "$([char]27)[32`m", 'Testing', "$([char]27)[0m"
+    Write-output $FormattedString
+- pwsh: |
+    . .\Write-LogMessage.ps1
+    Write-LogMessage -OutputType group -Message 'ForeGroundColored' -OutputStream Output
+    Write-LogMessage -Message "GreenCustom" -Color 'green' -OutputStream 'Output'
+    Write-LogMessage -Message "RedCustom" -Color 'red' -OutputStream 'Output'
+    Write-LogMessage -Message "YellowCustom" -Color 'yellow' -OutputStream 'Output'
+    Write-LogMessage -Message "MagentaCustom" -Color 'magenta' -OutputStream 'Output'
+    Write-LogMessage -Message "BrightGreenCustom" -Color 'bright green' -OutputStream 'Output'
+    Write-LogMessage -Message "BrightCyanCustom" -Color 'bright cyan' -OutputStream 'Output'
+    Write-LogMessage -OutputType endgroup -OutputStream Output
+    Write-LogMessage -OutputType group -Message 'BackgroundColored' -OutputStream Output
+    Write-LogMessage -Message "GreenCustom" -Color 'green' -OutputStream 'Output' -BackgroundColor
+    Write-LogMessage -Message "RedCustom" -Color 'red' -OutputStream 'Output' -BackgroundColor
+    Write-LogMessage -Message "YellowCustom" -Color 'yellow' -OutputStream 'Output' -BackgroundColor
+    Write-LogMessage -Message "MagentaCustom" -Color 'magenta' -OutputStream 'Output' -BackgroundColor
+    Write-LogMessage -Message "BrightGreenCustom" -Color 'bright green' -OutputStream 'Output' -BackgroundColor
+    Write-LogMessage -Message "BrightCyanCustom" -Color 'bright cyan' -OutputStream 'Output' -BackgroundColor
+    Write-LogMessage -OutputType endgroup -OutputStream Output
